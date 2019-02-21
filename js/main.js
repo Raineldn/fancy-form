@@ -29,7 +29,11 @@ const progress = document.querySelector('#progress-bar');
 
 // EVENTS
 
+// Get Question On DOM Load
 document.addEventListener('DOMContentLoaded', getQuestion);
+
+// Next Button Click
+nextBtn.addEventListener('click', validate);
 
 // FUNCTIONS
 
@@ -69,6 +73,37 @@ function hideQuestion() {
 	inputProgress.style.width = 0;
 	inputProgress.style.transition = 'none';
 	inputGroup.style.border = null;
+}
+
+// Transform To Create Shake Motion
+function transform(x, y) {
+	formBox.style.transform = `translate(${x}px, ${y}px)`;
+}
+
+// Validate Field
+function validate() {
+	// Make Sure Pattern Matches If There Is One
+	if(!inputField.value.match(questions[position].pattern || /.+/)){
+		inputFail();
+	} else {
+		inputPass();
+	}
+}
+
+// Field Input Fail
+function inputFail() {
+	formBox.className = 'error';
+	// Repeat Shake Motion - Set i to number of shakes
+	for(let i = 0; i < 6; i++) {
+		setTimeout(transform, shakeTime * i, ((i % 2) * 2 - 1) * 20, 0);
+		setTimeout(transform, shakeTime * 6, 0, 0);
+		inputField.focus();
+	}
+}
+
+// Field Input Passed
+function inputPass() {
+
 }
 
 
