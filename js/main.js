@@ -26,3 +26,60 @@ const inputField = document.querySelector('#input-field');
 const inputLabel = document.querySelector('#input-label');
 const inputProgress = document.querySelector('#input-progress');
 const progress = document.querySelector('#progress-bar');
+
+// EVENTS
+
+document.addEventListener('DOMContentLoaded', getQuestion);
+
+// FUNCTIONS
+
+//Get Question From Array & Add To Markup
+function getQuestion() {
+	// Get Current Question
+	inputLabel.innerHTML = questions[position].question;
+	// Get Current Type
+	inputField.type = questions[position].type || 'text';
+	// Get Current Answer
+	inputField.value = questions[position].answer || '';
+	// Focus On Element
+	inputField.focus();
+
+	// Set Progress Bar Width - Variable to the questions length
+	progress.style.width = (position * 100) / questions.length + '%';
+
+	// Add User Icon OR Back Arrow Depending On Question
+	prevBtn.className = position ? 'fas fa-arrow-left' : 'fas fa-user';
+
+	showQuestion();
+}
+
+// Display Question To User
+
+function showQuestion() {
+	inputGroup.style.opacity = 1;
+	inputProgress.style.transition = '';
+	inputProgress.style.width = '100%';
+}
+
+// Hide Question From User
+
+function hideQuestion() {
+	inputGroup.style.opacity = 0;
+	inputLabel.style.marginLeft = 0;
+	inputProgress.style.width = 0;
+	inputProgress.style.transition = 'none';
+	inputGroup.style.border = null;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
